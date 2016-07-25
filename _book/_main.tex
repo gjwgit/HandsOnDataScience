@@ -1,0 +1,529 @@
+\documentclass[]{book}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{{#1}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{{#1}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\ErrorTok}[1]{\textbf{{#1}}}
+\newcommand{\NormalTok}[1]{{#1}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={Graham Williams; Karthik Thirumalai},
+            pdftitle={Hands on Data Science with R},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{5}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{Hands on Data Science with R}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+  \author{Graham Williams \\ Karthik Thirumalai}
+  \preauthor{\centering\large\emph}
+  \postauthor{\par}
+  \date{}
+  \predate{}\postdate{}
+
+
+
+\begin{document}
+
+\maketitle
+
+
+{
+\hypersetup{linkcolor=black}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\section{Introduction}\label{introduction}
+
+Data Science is a forest of skills to learn and master. Hands on Data
+Science with R is a survival guide to data science using R. This book
+will teach you the practical skills and best practices of data science -
+With comprehensive and carefully curated solutions to most data science
+problems, this book provides you a swiss army knife to cut throught the
+forest.
+
+\begin{center}\includegraphics[width=0.33\linewidth]{graphics/book-cover-A4} \end{center}
+
+\section{Strings Manipulation}\label{strings-manipulation}
+
+In this module we introduce to tools available in R for handling and
+processing strings. The required packages for this module include:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(rattle) }\CommentTok{# The weather dataset.}
+\KeywordTok{library}\NormalTok{(stringr) }\CommentTok{# Pre-eminent package for string handling.}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{String Concatenation}\label{string-concatenation}
+
+Let us start with the simplest of string operations - concatenation two
+strings. The \textbf{cat()} function concatenates objects and could also
+print them to screen or to a file. By default it converts even numeric
+and other complex objects into character type and then concatenates .
+Alternatively we can use the \textbf{paste()} function to concatenate
+and print the values to screen. The \textbf{str\_c()} function is
+similar to the paste() function but the default separator is white space
+and it ignores NULL characters.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cat}\NormalTok{(}\StringTok{"hello"}\NormalTok{,}\StringTok{"world"}\NormalTok{,}\DataTypeTok{sep=}\StringTok{"}\CharTok{\textbackslash{}t}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## hello    world
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\DecValTok{123} \CommentTok{#Using numeric values with cat}
+\KeywordTok{cat} \NormalTok{(}\StringTok{"hello"}\NormalTok{,x,}\DataTypeTok{sep=}\StringTok{"}\CharTok{\textbackslash{}t}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## hello    123
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{paste}\NormalTok{(}\StringTok{"hello"}\NormalTok{,}\StringTok{"world"}\NormalTok{, }\DataTypeTok{sep=}\StringTok{"}\CharTok{\textbackslash{}t}\StringTok{"}\NormalTok{) }\CommentTok{#usage paste function}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "hello\tworld"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str_c}\NormalTok{(}\StringTok{'hello'}\NormalTok{,}\OtherTok{NULL}\NormalTok{,}\StringTok{'world'}\NormalTok{) }\CommentTok{# str_c with null characters}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "helloworld"
+\end{verbatim}
+
+\subsection{String Length}\label{string-length}
+
+The \textbf{nchar()} function in the base package is used to measure the
+typical length of the string. The \textbf{str\_length()} package could
+also be used to measure string lengths. In comparisson the str\_length()
+package handles NA characters more accurately as nchar(NA) returns 2
+while str\_length() returns NA. The other advantage of str\_length()
+over nchar() is its ability to handle factors robustly.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nchar}\NormalTok{(}\StringTok{'hello world'}\NormalTok{) }\CommentTok{#nchar functionality}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nchar}\NormalTok{(}\OtherTok{NA}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str_length}\NormalTok{(}\StringTok{'hello world'}\NormalTok{) }\CommentTok{#str_length from stringr package}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str_length}\NormalTok{(}\OtherTok{NA}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{factor_example =}\StringTok{ }\KeywordTok{factor}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{), }\DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"success"}\NormalTok{, }\StringTok{"fail"}\NormalTok{))}
+
+\CommentTok{#Handling factors str_length}
+\KeywordTok{str_length}\NormalTok{(factor_example)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4 4 7 7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Handling factors nchar}
+\KeywordTok{nchar}\NormalTok{(factor_example)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in nchar(factor_example): 'nchar()' requires a character vector
+\end{verbatim}
+
+\subsection{Case Conversion}\label{case-conversion}
+
+Often during data transformations strings have to be converted from one
+case to the other. These simple transformations could be achieved by
+\textbf{tolower()} and \textbf{toupper()} functions. The
+\textbf{casefolding()} function could also be used as a wrapper to the
+two functions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Conversion to upper case}
+\KeywordTok{toupper}\NormalTok{(}\StringTok{'string manipulation'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "STRING MANIPULATION"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Conversion to lower case}
+\KeywordTok{tolower}\NormalTok{(}\StringTok{'STRING MANIPULATION'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "string manipulation"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#casefold to upper}
+\KeywordTok{casefold}\NormalTok{(}\StringTok{'string manipulation'}\NormalTok{,}\DataTypeTok{upper=}\OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "STRING MANIPULATION"
+\end{verbatim}
+
+\subsection{Substring Operation}\label{substring-operation}
+
+Finding substrings are one of the most common string manipulation
+operations. The \textbf{substr()} could be used to extract, replace
+parts of the string. The \textbf{substring()} functions performs the
+same operations on a character vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Exctraction strings}
+\KeywordTok{substr}\NormalTok{(}\StringTok{'string manipulation'}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "ring"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Replacing strings with substr}
+\NormalTok{s <-}\StringTok{ 'string manipulation'}
+\KeywordTok{substr}\NormalTok{(s,}\DecValTok{3}\NormalTok{,}\DecValTok{6}\NormalTok{) <-}\StringTok{ 'RING'}
+\NormalTok{s}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "stRING manipulation"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Extraction from character vectors using substring}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'abcd'}\NormalTok{,}\StringTok{'aabcb'}\NormalTok{,}\StringTok{'babcc'}\NormalTok{,}\StringTok{'cabcd'}\NormalTok{)}
+\KeywordTok{substring}\NormalTok{(x,}\DecValTok{2}\NormalTok{,}\DataTypeTok{last =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "bcd" "abc" "abc" "abc"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Replacing in character vector using substring}
+\KeywordTok{substring}\NormalTok{(x,}\DecValTok{2}\NormalTok{,}\DataTypeTok{last=}\DecValTok{4}\NormalTok{) <-}\StringTok{ 'AB'}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "aABd"  "aABcb" "bABcc" "cABcd"
+\end{verbatim}
+
+The stringr package offers \textbf{str\_sub()} which is a equivalent of
+substring(). The str\_sub() function handles negative values even more
+robustly than the substring() function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"string"}\NormalTok{, }\StringTok{"manipulation"}\NormalTok{, }\StringTok{"always"}\NormalTok{, }\StringTok{"fascinating"}\NormalTok{)}
+
+\CommentTok{# substring function using negative indices}
+\KeywordTok{substring}\NormalTok{(y,}\DataTypeTok{first =} \NormalTok{-}\DecValTok{4}\NormalTok{,}\DataTypeTok{last =} \NormalTok{-}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "" "" "" ""
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# str_sub handles negative indices}
+\KeywordTok{str_sub}\NormalTok{(y , }\DataTypeTok{start =} \NormalTok{-}\DecValTok{4}\NormalTok{, }\DataTypeTok{end =} \NormalTok{-}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "ring" "tion" "ways" "ting"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#String replacement using str_sub}
+\KeywordTok{str_sub}\NormalTok{(y,}\DataTypeTok{start=}\NormalTok{-}\DecValTok{4}\NormalTok{,}\DataTypeTok{end=}\NormalTok{-}\DecValTok{1}\NormalTok{) <-}\StringTok{ 'RING'}
+\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "stRING"       "manipulaRING" "alRING"       "fascinaRING"
+\end{verbatim}
+
+\subsection{String trimming and
+padding}\label{string-trimming-and-padding}
+
+One of the major challenges of string parsing is handline additional
+whitespaces in words. Often additional widespaces are present on the
+left, right or both sides of the word. The \textbf{str\_trim} function
+offers an effective way to get rid of these whitespaces.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{whitespace.vector <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'  abc'}\NormalTok{,}\StringTok{'def   '}\NormalTok{,}\StringTok{'     ghi       '}\NormalTok{)}
+\CommentTok{#trimming on left sides}
+\KeywordTok{str_trim}\NormalTok{(whitespace.vector,}\DataTypeTok{side =} \StringTok{'left'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "abc"        "def   "     "ghi       "
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#trimming on right sides}
+\KeywordTok{str_trim}\NormalTok{(whitespace.vector,}\DataTypeTok{side =} \StringTok{'right'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "  abc"    "def"      "     ghi"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#trimming on both sides}
+\KeywordTok{str_trim}\NormalTok{(whitespace.vector,}\DataTypeTok{side =} \StringTok{'both'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "abc" "def" "ghi"
+\end{verbatim}
+
+Conversely we could also pad a string with additional characters for a
+defined width using the \textbf{str\_pad()} function. The default
+padding character is a space.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Left padding}
+\KeywordTok{str_pad}\NormalTok{(}\StringTok{'abc'}\NormalTok{,}\DataTypeTok{width=}\DecValTok{7}\NormalTok{,}\DataTypeTok{side=}\StringTok{"left"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "    abc"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Right padding}
+\KeywordTok{str_pad}\NormalTok{(}\StringTok{'abc'}\NormalTok{,}\DataTypeTok{width=}\DecValTok{7}\NormalTok{,}\DataTypeTok{side=}\StringTok{"right"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "abc    "
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Padding other characters}
+\KeywordTok{str_pad}\NormalTok{(}\StringTok{'abc'}\NormalTok{,}\DataTypeTok{width=}\DecValTok{7}\NormalTok{,}\DataTypeTok{side=}\StringTok{"both"}\NormalTok{,}\DataTypeTok{pad=}\StringTok{"#"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "##abc##"
+\end{verbatim}
+
+\subsection{String Wrapping}\label{string-wrapping}
+
+Sometimes text have to be manipulated to neat paragraphs of defined
+width. The \textbf{str\_wrap()} function could be used to format the
+text into defined paragraphs of specific width.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{some_text =}\StringTok{ 'All the Worlds a stage, All men are merely players'}
+\KeywordTok{cat}\NormalTok{(}\KeywordTok{str_wrap}\NormalTok{(some_text,}\DataTypeTok{width=}\DecValTok{25}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## All the Worlds a stage,
+## All men are merely
+## players
+\end{verbatim}
+
+\subsection{Extracting Words}\label{extracting-words}
+
+Let us complete this chapter with the simple \textbf{word()} function
+which extract words from a sentence. We specify the positions of the
+word to be extracted from the setence. The default separator value is
+space.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Extracting the first two words of a character vector}
+\NormalTok{some.text <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'The quick brown fox'}\NormalTok{,}\StringTok{'jumps on the brown dog'}\NormalTok{)}
+\KeywordTok{word}\NormalTok{(some.text,}\DataTypeTok{start =} \DecValTok{1}\NormalTok{,}\DataTypeTok{end=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "The quick" "jumps on"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#extracting all but the last word}
+\KeywordTok{word}\NormalTok{(some.text,}\DataTypeTok{start=}\DecValTok{1}\NormalTok{,}\DataTypeTok{end=}\NormalTok{-}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "The quick brown"    "jumps on the brown"
+\end{verbatim}
+
+\end{document}

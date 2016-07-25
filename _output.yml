@@ -1,0 +1,20 @@
+author: "Graham Williams and Karthik Thirumalai"
+output:
+  bookdown::gitbook:
+    lib_dir: assets
+    split_by: section
+    config:
+      toolbar:
+        position: static
+      sharing:
+        facebook: yes
+        twitter: yes
+      toc:
+        collapse: section
+        css : css/toc.css
+  bookdown::pdf_book:
+    keep_tex: yes
+    toc: yes
+  bookdown::html_chapters:
+    css: css/toc.css
+documentclass: book
