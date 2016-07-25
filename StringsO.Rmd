@@ -11,40 +11,65 @@ The required packages for this module include:
 library(rattle) # The weather dataset.
 library(stringr) # Pre-eminent package for string handling.
 ```
+
 ## String Concatenation
 
-Let us start with the simplest of string operations - concatenation two strings. The **cat()** function concatenates objects and could also print them to screen or to a file. By default it converts even numeric and other complex objects into character type and then concatenates . Alternatively we can use the **paste()** function to concatenate and print the values to screen. The **str_c()** function is similar to the paste() function but the default separator is white space and it ignores NULL characters. 
+Let us start with the simplest of string operations - concatenation two strings. 
+
+### cat
+
+The **cat()** function concatenates objects and could also print them to screen or to a file. By default it converts even numeric and other complex objects into character type and then concatenates.
 
 ```{r,eval=TRUE}
 cat("hello","world",sep="\t")
 
 x <- 123 #Using numeric values with cat
 cat ("hello",x,sep="\t")
+```
 
+###paste
+
+Alternatively we can use the **paste()** function to concatenate and print the values to screen. 
+```{r}
 paste("hello","world", sep="\t") #usage paste function
+```
 
+The major disadvantage of the paste function is that it does not handle null characters effectively. It converts the NULL character as a space instead of treating it appropriately.
+
+```{r}
+paste('hello',NULL,'world')
+```
+
+###str_c
+The **str_c()** function is similar to the paste() function but the default separator is white space and it ignores NULL characters. 
+
+```{r}
 str_c('hello',NULL,'world') # str_c with null characters
 ```
 
 ## String Length 
 
-The **nchar()** function in the base package is used to measure the typical length of the string. The **str_length()** package could also be used to measure string lengths. In comparisson the str\_length() package handles NA characters more accurately as nchar(NA) returns 2 while str\_length() returns NA. The other advantage of str_length() over nchar() is its ability to handle factors robustly.
+###nchar
+The **nchar()** function in the base package is used to measure the typical length of the string. One major issues is it's inability to handle factor values robustly.
+
+```{r,error=T}
+nchar('hello world') #nchar functionality
+
+factor_example = factor(c(1, 1, 0,0), labels = c("success", "fail"))
+#nchar with factor vector
+nchar(factor_example)
+
+```
+
+###str_length
+Alternatively **str_length()** package could also be used to measure string lengths. In comparisson the str\_length() package handles NA characters more accurately as nchar(NA) returns 2 while str\_length() returns NA and also handles factor values appropriately.
 
 ```{r,error=T}
 
-nchar('hello world') #nchar functionality
-nchar(NA)
-
 str_length('hello world') #str_length from stringr package
-str_length(NA)
-
-factor_example = factor(c(1, 1, 0,0), labels = c("success", "fail"))
 
 #Handling factors str_length
 str_length(factor_example)
-
-#Handling factors nchar
-nchar(factor_example)
 ```
 
 ## Case Conversion
@@ -65,9 +90,10 @@ casefold('string manipulation',upper=TRUE)
 
 ## Substring Operation 
 
-Finding substrings are one of the most common string manipulation operations. The **substr()** could be used to extract, replace parts of the string. The **substring()** functions performs the same operations on a character vector. 
+Finding substrings are one of the most common string manipulation operations.
 
-
+###**substr**
+The **substr()** could be used to extract, replace parts of the string. 
 ```{r}
 
 #Exctraction strings
@@ -77,7 +103,12 @@ substr('string manipulation',3,6)
 s <- 'string manipulation'
 substr(s,3,6) <- 'RING'
 s
+```
 
+###**substring**
+The **substring()** functions performs the same operations on a character vector. 
+
+```{r}
 #Extraction from character vectors using substring
 x <- c('abcd','aabcb','babcc','cabcd')
 substring(x,2,last = 4)
@@ -87,12 +118,13 @@ substring(x,2,last=4) <- 'AB'
 x
 ```
 
+###str_sub
 The stringr package offers **str_sub()** which is a equivalent of substring(). The str\_sub() function handles negative values even more robustly than the substring() function.
 
 ```{r}
 y = c("string", "manipulation", "always", "fascinating")
 
-# substring function using negative indices
+#substring function using negative indices
 substring(y,first = -4,last = -1)
 # str_sub handles negative indices
 str_sub(y , start = -4, end = -1)
@@ -102,12 +134,15 @@ str_sub(y,start=-4,end=-1) <- 'RING'
 y
 ```
 
-## String trimming and padding 
+## Simple String Operations
 
-One of the major challenges of string parsing is handline additional whitespaces in words. Often additional widespaces are present on the left, right or both sides of the word. The **str_trim** function offers an effective way to get rid of these whitespaces.
+One of the major challenges of string parsing is handline additional whitespaces in words. Often additional widespaces are present on the left, right or both sides of the word. 
+
+###String Trimming
+
+The **str_trim** function offers an effective way to get rid of these whitespaces.
 
 ```{r}
-
 whitespace.vector <- c('  abc','def   ','     ghi       ')
 #trimming on left sides
 str_trim(whitespace.vector,side = 'left')
@@ -116,6 +151,8 @@ str_trim(whitespace.vector,side = 'right')
 #trimming on both sides
 str_trim(whitespace.vector,side = 'both')
 ```
+
+### String Padding
 
 Conversely we could also pad a string with additional characters for a defined width using the **str_pad()**
 function. The default padding character is a space.
@@ -131,7 +168,7 @@ str_pad('abc',width=7,side="right")
 str_pad('abc',width=7,side="both",pad="#")
 ```
 
-## String Wrapping
+### String Wrapping
 
 Sometimes text have to be manipulated to neat paragraphs of defined width. The **str_wrap()** function could be used to format the text into defined paragraphs of specific width.
 
@@ -141,7 +178,7 @@ some_text = 'All the Worlds a stage, All men are merely players'
 cat(str_wrap(some_text,width=25))
 ```
 
-## Extracting Words
+### Extracting Words
 
 Let us complete this chapter with the simple **word()** function which extract words from a sentence. We specify the positions of the word to be extracted from the setence. The default separator value is space.
 
