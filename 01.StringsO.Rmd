@@ -12,11 +12,11 @@ library(rattle) # The weather dataset.
 library(stringr) # Pre-eminent package for string handling.
 ```
 
-## String Concatenation
+## String Concatenation {-}
 
 Let us start with the simplest of string operations - concatenation two strings. 
 
-### cat
+### cat {-}
 
 The **cat()** function concatenates objects and could also print them to screen or to a file. By default it converts even numeric and other complex objects into character type and then concatenates.
 
@@ -27,7 +27,7 @@ x <- 123 #Using numeric values with cat
 cat ("hello",x,sep="\t")
 ```
 
-###paste
+###paste {-}
 
 Alternatively we can use the **paste()** function to concatenate and print the values to screen. 
 ```{r}
@@ -40,16 +40,16 @@ The major disadvantage of the paste function is that it does not handle null cha
 paste('hello',NULL,'world')
 ```
 
-###str_c
+###str_c {-}
 The **str_c()** function is similar to the paste() function but the default separator is white space and it ignores NULL characters. 
 
 ```{r}
 str_c('hello',NULL,'world') # str_c with null characters
 ```
 
-## String Length 
+## String Length  {-}
 
-###nchar
+###nchar {-}
 The **nchar()** function in the base package is used to measure the typical length of the string. One major issues is it's inability to handle factor values robustly.
 
 ```{r,error=T}
@@ -61,7 +61,7 @@ nchar(factor_example)
 
 ```
 
-###str_length
+###str_length {-}
 Alternatively **str_length()** package could also be used to measure string lengths. In comparisson the str\_length() package handles NA characters more accurately as nchar(NA) returns 2 while str\_length() returns NA and also handles factor values appropriately.
 
 ```{r,error=T}
@@ -72,7 +72,7 @@ str_length('hello world') #str_length from stringr package
 str_length(factor_example)
 ```
 
-## Case Conversion
+## Case Conversion {-}
 
 Often during data transformations strings have to be converted from one case to the other. These simple transformations could be achieved by **tolower()** and **toupper()** functions. The **casefolding()** function could also be used as a wrapper to the two functions.
 
@@ -88,11 +88,11 @@ tolower('STRING MANIPULATION')
 casefold('string manipulation',upper=TRUE)
 ```
 
-## Substring Operation 
+## Substring Operation {-}
 
 Finding substrings are one of the most common string manipulation operations.
 
-###**substr**
+###**substr** {.unnumbered}
 The **substr()** could be used to extract, replace parts of the string. 
 ```{r}
 
@@ -105,7 +105,7 @@ substr(s,3,6) <- 'RING'
 s
 ```
 
-###**substring**
+###**substring** {.unnumbered}
 The **substring()** functions performs the same operations on a character vector. 
 
 ```{r}
@@ -118,7 +118,8 @@ substring(x,2,last=4) <- 'AB'
 x
 ```
 
-###str_sub
+###str_sub {.unnumbered}
+
 The stringr package offers **str_sub()** which is a equivalent of substring(). The str\_sub() function handles negative values even more robustly than the substring() function.
 
 ```{r}
@@ -134,11 +135,11 @@ str_sub(y,start=-4,end=-1) <- 'RING'
 y
 ```
 
-## Simple String Operations
+## Simple String Operations {-} 
 
 One of the major challenges of string parsing is handline additional whitespaces in words. Often additional widespaces are present on the left, right or both sides of the word. 
 
-###String Trimming
+###String Trimming {.unnumbered}
 
 The **str_trim** function offers an effective way to get rid of these whitespaces.
 
@@ -152,7 +153,7 @@ str_trim(whitespace.vector,side = 'right')
 str_trim(whitespace.vector,side = 'both')
 ```
 
-### String Padding
+### String Padding {.unnumbered}
 
 Conversely we could also pad a string with additional characters for a defined width using the **str_pad()**
 function. The default padding character is a space.
@@ -168,7 +169,7 @@ str_pad('abc',width=7,side="right")
 str_pad('abc',width=7,side="both",pad="#")
 ```
 
-### String Wrapping
+### String Wrapping {.unnumbered}
 
 Sometimes text have to be manipulated to neat paragraphs of defined width. The **str_wrap()** function could be used to format the text into defined paragraphs of specific width.
 
@@ -178,7 +179,7 @@ some_text = 'All the Worlds a stage, All men are merely players'
 cat(str_wrap(some_text,width=25))
 ```
 
-### Extracting Words
+### Extracting Words {.unnumbered}
 
 Let us complete this chapter with the simple **word()** function which extract words from a sentence. We specify the positions of the word to be extracted from the setence. The default separator value is space.
 
@@ -190,5 +191,100 @@ word(some.text,start = 1,end=2)
 word(some.text,start=1,end=-2)
 ```
 
+## Regular Expressions {-}
 
+Regular expression is a sequence of characters that describe a patttern to match. The concept was formalized by American mathematician Stephen Cole Kleene. A regular expression pattern can contain a combination of alphanumeric and special characters. Let us take a closer look how these special characters can be used to craft regular expressions in R.
+
+#### Metacharacters {.unnumbered}
+
+Metacharacters are characters that have a special meaning within a regular expression. Unlike other characters that are used to match themselves, metacharacters have a reserved status and cannot be matched explicity. The following table shows a list of metacharacters used in regular expressions.
+
+```{r,echo=FALSE}
+meta <- read.csv(file = 'tables/metacharacters.csv',header = T)
+knitr::kable(
+   meta,
+  caption = 'Metacharacters in Regular Expression'
+)
+```
+We shall now see how metacharacters can be used to match different patterns with a few examples.
+```{r,message=F,metacharacterEg,warning=F}
+string <- c('hands','data','on','data$cience','handsondata$cience','handson')
+#Matching occurance of pattern at the begining of the string
+grep(pattern = '^data',string,value = T)
+#Matching occurance of pattern at the end of the string
+grep(pattern = 'on$',string,value = T)
+#Detecting if the pattern (nd) occurs atleast ones
+str_detect(pattern = '(nd)+',string)
+```
+Inorder to match a metacharacter in R, we use  $\backslash\backslash$ (double backslash) before them. 
+```{r,match_meta}
+#Matching the metacharacter $ 
+grep(pattern = '\\$',string,value = T)
+```
+
+#### Quantifiers {.unnumbered}
+
+Quantifiers are used to match repitition of pattern within a string. The following table shows a list of quantifiers.
+
+```{r,echo=FALSE,quantifiers, echo=FALSE}
+quantifier <- read.table(file = 'tables/quantifier.csv',header = T,sep = '\t')
+knitr::kable(
+   quantifier,
+  caption = 'Quantifiers in Regular Expression'
+)
+```
+
+Let us see some examples of quantifiers in practice.
+
+```{r,quantifier_examp}
+strings <- c('aaab','abb','bc','abbcd','bbbc','abab','caa')
+#* Strings containing data atleast 0 times 
+grep(pattern = 'ab*b',strings,value = T)
+#? Strings containing the pattern atmost ones
+grep(pattern = 'abbc?',strings,value = T)
+#Atleast two occurances 
+grep(pattern = 'b{2,}?',strings,value = T)
+```
+
+#### Character classes {.unnumbered}
+A character class is a set that characterises a category of characters. They are enclosed within [] and they match one of the mentioned characters in the set. For example the character class [0-9] matches the first digit occuring in the string. Below are a set of character classes.
+
+```{r,echo=FALSE,characterclass, echo=FALSE,warning=FALSE}
+quantifier <- read.table(file = 'tables/characterclass.txt',header = T,sep = '\t')
+knitr::kable(
+   quantifier,
+  caption = 'Character Class'
+)
+```
+
+Let us see some simple examples of using character classes in regular expressions.
+```{r,character_class_eg}
+string <- c('abc12','@#$','345','ABcd')
+#Matching strings containing digits
+grep(pattern = '[0-9]+',string,value = T)
+#Matching strings containing Capital letters
+grep(pattern = '[A-Z]+',string,value = T)
+#Matching strings not containing special characters
+grep(pattern = '[^@#$]+',string,value = T)
+```
+
+Alternatively R allows the use of POSIX character classes which are represented within [[]] (double braces). 
+```{r,posix_char_class}
+#Matching alphanumeric characters 
+grep(pattern = '[[:alpha:]]',string,value = T)
+#Matching upper case characters
+grep(pattern = '[[:upper:]]',string,value = T)
+```
+
+###Functions in R to Support Regular Expressions {-}
+
+R has a great array of functions that support regular expressions. The following is a list of functions from the base and stringr package that support regular expressions.
+
+```{r,echo = F}
+regex_func <- read.csv('tables/regex_functions.txt',sep = ',',header=T)
+knitr::kable(
+  regex_func,
+  caption = 'Functions Supporting Regular Expressions in R'
+)
+```
 

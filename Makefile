@@ -8,9 +8,10 @@ help:
 	@echo "\n\tManage Hands On Data Science Modules\n\
         =====================================\n\n\
         Targets:\n\n\
-          html   \tCompile a html document and view on browser.\n\
-          pdf    \tCompile a pdf document and view.\n\
-          md     \tCompile a md document and view.\n\
+          html   \t\tCompile a html document and view on browser.\n\
+          pdf    \t\tCompile a pdf document and view.\n\
+          md     \t\tCompile a md document and view.\n\
+          preview file=filename Preview file\n\
         \n\
           clean    \tRemove all bookdown files.\n\
           realclean\tRemove all generated files.\n\
@@ -34,7 +35,13 @@ realclean:
 	make clean && rm -fvr rsconnect
 	rm -rf _book/* *.pdf *.html
 
+preview:
+	@ if ["$(file)" == ""]; then \
+	    echo "File variable not set";\
+	    exit 1;\
+        fi
+	Rscript -e 'bookdown::preview_chapter("$(file)",output_format = "bookdown::gitbook")'
+	open _book/index.html
+
 cacheclean:
 	rm -rf cache
-
-
