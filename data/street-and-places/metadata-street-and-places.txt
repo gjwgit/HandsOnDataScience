@@ -1,0 +1,27 @@
+# Metadata for Street and Places
+---
+Identifier: 'ad90f011-f73f-4e29-8aac-d24b77de2a9f'
+Name: 'street-and-places'
+Title: 'Street and Places'
+Description: 'Find out the interesting history and story behind the street names and
+  places of interest in Singapore. Content is from Infopedia.'
+Topics:
+  - 'Infrastructure'
+Keywords:
+  - 'history'
+  - 'infopedia'
+  - 'place'
+  - 'streets'
+Publisher:
+  Name: 'National Library Board'
+Sources:
+  - 'National Library Board'
+License: 'https://data.gov.sg/terms'
+Frequency: 'Ad-hoc'
+Last Updated: '2016-04-28T05:29:33.268131'
+Resources:
+  Identifier: 'ae3a0e1e-21f0-424f-954b-2ca75764916c'
+  Title: 'Street and Places (SHP)'
+  Url: 'https://geo.data.gov.sg/streetsandplaces/2014/10/24/shp/streetsandplaces.zip'
+  Format: 'SHP'
+  Last Updated: '2014-10-23T16:00:00'

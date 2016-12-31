@@ -1,0 +1,6 @@
+Quantifier	Description
+*	The preceeding item is matched 0 or more times
++	The preceeding item is matched 1 or more times
+?	The preceeding item is matched at most 1 times.
+{n}	The preceeding item is matched n times.
+{n,}	The preceeding item is matched atleast n times.

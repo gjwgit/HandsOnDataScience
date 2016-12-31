@@ -1,0 +1,9 @@
+Character Class	Description
+[0-9]	Digits
+[a-z]	Lower-case letters
+[A-Z]	Upper-case letters
+[a-zA-Z]	Alphabetic characters
+[^a-zA-Z]	Non-alphabetic characters
+[a-zA-Z0-9]	Alphanumeric characters
+"[\n\t\r\f\v]"	Space characters
+"[!,:;`\)}@-]$*+.?[^{|(\\#%&~_/<=>']"	Punctuation characters

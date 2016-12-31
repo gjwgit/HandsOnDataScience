@@ -1,0 +1,7 @@
+Metacharacter, Description
+^,Matches at the start of the string
+$,Matches at the end of the string 
+(),Define a subexpression to be matched and retrieved later.
+|,Matches the pattern before or pattern after
+[ ],Matches a single character that is contained within bracket
+.,Matches any single character

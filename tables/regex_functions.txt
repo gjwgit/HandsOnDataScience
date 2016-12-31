@@ -1,0 +1,20 @@
+Function,Description
+grep(),Returns index of elements that matched
+grepl(),Returns boolean values indicating if a pattern exist in the string (TRUE & FALSE)
+regexpr(),Returns the first match of the pattern in string
+gregexpr(),Returns all matches of pattern in string
+regexec(),Combines results of regexpr() and gregexpr()
+sub(),Replaces the first match of pattern with replacement
+gsub(),Replaces all matches of pattern with replacement
+strsplit(),Split string in to vector according to pattern match
+str_detect(),Detect a presence or absence of a pattern in a string
+str_extract(),Extracts first occurance of pattern in string.
+str_extract_all(),Extracts all occurance of pattern in string.
+str_match(),Extract first matched group from a string
+str_match_all(),Extract all matched groups from a string
+str_locate(),Locate the position of the frst occurence of a pattern in a string
+str_locate_all(),Locate the position of all occurences of a pattern in a string
+str_replace(),Returns the first match of the pattern in string
+str_replace_all(),Returns all matches of pattern in string
+str_split(),Split up a string into a variable number of pieces
+str_split_fixed(),Split up a string into a fixed number of pieces

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Hands on Data Science with R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Hands on Data Science with R is a practical and hands on guide to data science with R">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Hands on Data Science with R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="graphics/book-cover-A4.png" />
+  <meta property="og:description" content="Hands on Data Science with R is a practical and hands on guide to data science with R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Hands on Data Science with R" />
+  
+  <meta name="twitter:description" content="Hands on Data Science with R is a practical and hands on guide to data science with R" />
+  <meta name="twitter:image" content="graphics/book-cover-A4.png" />
+
+<meta name="author" content="Graham Williams">
+<meta name="author" content="Karthik Thirumalai">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="simple-string-operations.html">
+<link rel="next" href="maps-and-spatial-visualization.html">
+
+<script src="assets/jquery-2.2.3/jquery.min.js"></script>
+<link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="assets/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="assets/leaflet-0.7.3/leaflet.css" rel="stylesheet" />
+<script src="assets/leaflet-0.7.3/leaflet.js"></script>
+<link href="assets/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="assets/leaflet-binding-1.0.1/leaflet.js"></script>
+
+
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+</style>
+
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="strings-manipulation.html"><a href="strings-manipulation.html"><i class="fa fa-check"></i><b>2</b> Strings Manipulation</a><ul>
+<li class="chapter" data-level="" data-path="string-concatenation.html"><a href="string-concatenation.html"><i class="fa fa-check"></i>String Concatenation</a><ul>
+<li class="chapter" data-level="" data-path="string-concatenation.html"><a href="string-concatenation.html#cat"><i class="fa fa-check"></i>cat</a></li>
+<li class="chapter" data-level="" data-path="string-concatenation.html"><a href="string-concatenation.html#paste"><i class="fa fa-check"></i>paste</a></li>
+<li class="chapter" data-level="" data-path="string-concatenation.html"><a href="string-concatenation.html#str_c"><i class="fa fa-check"></i>str_c</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="string-length.html"><a href="string-length.html"><i class="fa fa-check"></i>String Length</a><ul>
+<li class="chapter" data-level="" data-path="string-length.html"><a href="string-length.html#nchar"><i class="fa fa-check"></i>nchar</a></li>
+<li class="chapter" data-level="" data-path="string-length.html"><a href="string-length.html#str_length"><i class="fa fa-check"></i>str_length</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="case-conversion.html"><a href="case-conversion.html"><i class="fa fa-check"></i>Case Conversion</a></li>
+<li class="chapter" data-level="" data-path="substring-operation.html"><a href="substring-operation.html"><i class="fa fa-check"></i>Substring Operation</a><ul>
+<li><a href="substring-operation.html#substr"><strong>substr</strong></a></li>
+<li><a href="substring-operation.html#substring"><strong>substring</strong></a></li>
+<li class="chapter" data-level="" data-path="substring-operation.html"><a href="substring-operation.html#str_sub"><i class="fa fa-check"></i>str_sub</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="simple-string-operations.html"><a href="simple-string-operations.html"><i class="fa fa-check"></i>Simple String Operations</a><ul>
+<li class="chapter" data-level="" data-path="simple-string-operations.html"><a href="simple-string-operations.html#string-trimming"><i class="fa fa-check"></i>String Trimming</a></li>
+<li class="chapter" data-level="" data-path="simple-string-operations.html"><a href="simple-string-operations.html#string-padding"><i class="fa fa-check"></i>String Padding</a></li>
+<li class="chapter" data-level="" data-path="simple-string-operations.html"><a href="simple-string-operations.html#string-wrapping"><i class="fa fa-check"></i>String Wrapping</a></li>
+<li class="chapter" data-level="" data-path="simple-string-operations.html"><a href="simple-string-operations.html#extracting-words"><i class="fa fa-check"></i>Extracting Words</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regular-expressions.html"><a href="regular-expressions.html"><i class="fa fa-check"></i>Regular Expressions</a><ul>
+<li class="chapter" data-level="" data-path="regular-expressions.html"><a href="regular-expressions.html#functions-in-r-to-support-regular-expressions"><i class="fa fa-check"></i>Functions in R to Support Regular Expressions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="maps-and-spatial-visualization.html"><a href="maps-and-spatial-visualization.html"><i class="fa fa-check"></i><b>3</b> Maps and Spatial Visualization</a><ul>
+<li class="chapter" data-level="" data-path="geocodes.html"><a href="geocodes.html"><i class="fa fa-check"></i>Geocodes</a></li>
+<li class="chapter" data-level="" data-path="world-map.html"><a href="world-map.html"><i class="fa fa-check"></i>World Map</a></li>
+<li class="chapter" data-level="" data-path="understanding-spatial-data.html"><a href="understanding-spatial-data.html"><i class="fa fa-check"></i>Understanding Spatial Data</a><ul>
+<li class="chapter" data-level="" data-path="understanding-spatial-data.html"><a href="understanding-spatial-data.html#plotting-raster-data"><i class="fa fa-check"></i>Plotting Raster Data</a></li>
+<li class="chapter" data-level="" data-path="understanding-spatial-data.html"><a href="understanding-spatial-data.html#plotting-shapefiles"><i class="fa fa-check"></i>Plotting Shapefiles</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="annotating-location-on-a-map.html"><a href="annotating-location-on-a-map.html"><i class="fa fa-check"></i>Annotating Location on a Map</a></li>
+<li class="chapter" data-level="" data-path="plotting-polygons-and-heatmaps.html"><a href="plotting-polygons-and-heatmaps.html"><i class="fa fa-check"></i>Plotting Polygons and HeatMaps</a></li>
+<li class="chapter" data-level="" data-path="interactive-maps-with-leaflet.html"><a href="interactive-maps-with-leaflet.html"><i class="fa fa-check"></i>Interactive Maps with Leaflet</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Hands on Data Science with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regular-expressions" class="section level2 unnumbered">
+<h2>Regular Expressions</h2>
+<p>Regular expression is a sequence of characters that describe a patttern to match. The concept was formalized by American mathematician Stephen Cole Kleene. A regular expression pattern can contain a combination of alphanumeric and special characters. Let us take a closer look how these special characters can be used to craft regular expressions in R.</p>
+<div id="metacharacters" class="section level4 unnumbered">
+<h4>Metacharacters</h4>
+<p>Metacharacters are characters that have a special meaning within a regular expression. Unlike other characters that are used to match themselves, metacharacters have a reserved status and cannot be matched explicity. The following table shows a list of metacharacters used in regular expressions.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-17">Table 2.1: </span>Metacharacters in Regular Expression</caption>
+<thead>
+<tr class="header">
+<th align="left">Metacharacter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">^</td>
+<td align="left">Matches at the start of the string</td>
+</tr>
+<tr class="even">
+<td align="left">$</td>
+<td align="left">Matches at the end of the string</td>
+</tr>
+<tr class="odd">
+<td align="left">()</td>
+<td align="left">Define a subexpression to be matched and retrieved later.</td>
+</tr>
+<tr class="even">
+<td align="left">|</td>
+<td align="left">Matches the pattern before or pattern after</td>
+</tr>
+<tr class="odd">
+<td align="left">[ ]</td>
+<td align="left">Matches a single character that is contained within bracket</td>
+</tr>
+<tr class="even">
+<td align="left">.</td>
+<td align="left">Matches any single character</td>
+</tr>
+<tr class="odd">
+<td align="left">We shall now see</td>
+<td align="left">how metacharacters can be used to match different patterns with a few examples.</td>
+</tr>
+</tbody>
+</table>
+<pre class="sourceCode r"><code class="sourceCode r">string &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;hands&#39;</span>,<span class="st">&#39;data&#39;</span>,<span class="st">&#39;on&#39;</span>,<span class="st">&#39;data$cience&#39;</span>,<span class="st">&#39;handsondata$cience&#39;</span>,<span class="st">&#39;handson&#39;</span>)
+<span class="co"># Matching occurance of pattern at the begining of the string</span>
+<span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&#39;^data&#39;</span>,string,<span class="dt">value =</span> T)</code></pre>
+<pre><code>## [1] &quot;data&quot;        &quot;data$cience&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Matching occurance of pattern at the end of the string</span>
+<span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&#39;on$&#39;</span>,string,<span class="dt">value =</span> T)</code></pre>
+<pre><code>## [1] &quot;on&quot;      &quot;handson&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Detecting if the pattern (nd) occurs atleast ones</span>
+<span class="kw">str_detect</span>(<span class="dt">pattern =</span> <span class="st">&#39;(nd)+&#39;</span>,string)</code></pre>
+<pre><code>## [1]  TRUE FALSE FALSE FALSE  TRUE  TRUE</code></pre>
+<p>Inorder to match a metacharacter in R, we use <span class="math">\(\backslash\backslash\)</span> (double backslash) before them.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Matching the metacharacter $ </span>
+<span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&#39;</span><span class="ch">\\</span><span class="st">$&#39;</span>,string,<span class="dt">value =</span> T)</code></pre>
+<pre><code>## [1] &quot;data$cience&quot;        &quot;handsondata$cience&quot;</code></pre>
+</div>
+<div id="quantifiers" class="section level4 unnumbered">
+<h4>Quantifiers</h4>
+<p>Quantifiers are used to match repitition of pattern within a string. The following table shows a list of quantifiers.</p>
+<table>
+<caption><span id="tab:quantifiers">Table 2.2: </span>Quantifiers in Regular Expression</caption>
+<thead>
+<tr class="header">
+<th align="left">Quantifier</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">*</td>
+<td align="left">The preceeding item is matched 0 or more times</td>
+</tr>
+<tr class="even">
+<td align="left">+</td>
+<td align="left">The preceeding item is matched 1 or more times</td>
+</tr>
+<tr class="odd">
+<td align="left">?</td>
+<td align="left">The preceeding item is matched at most 1 times.</td>
+</tr>
+<tr class="even">
+<td align="left">{n}</td>
+<td align="left">The preceeding item is matched n times.</td>
+</tr>
+<tr class="odd">
+<td align="left">{n,}</td>
+<td align="left">The preceeding item is matched atleast n times.</td>
+</tr>
+</tbody>
+</table>
+<p>Let us see some examples of quantifiers in practice.</p>
+<pre class="sourceCode r"><code class="sourceCode r">strings &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;aaab&#39;</span>,<span class="st">&#39;abb&#39;</span>,<span class="st">&#39;bc&#39;</span>,<span class="st">&#39;abbcd&#39;</span>,<span class="st">&#39;bbbc&#39;</span>,<span class="st">&#39;abab&#39;</span>,<span class="st">&#39;caa&#39;</span>)
+<span class="co">#* Strings containing data atleast 0 times </span>
+<span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&#39;ab*b&#39;</span>,strings,<span class="dt">value =</span> T)</code></pre>
+<pre><code>## [1] &quot;aaab&quot;  &quot;abb&quot;   &quot;abbcd&quot; &quot;abab&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#? Strings containing the pattern atmost ones</span>
+<span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&#39;abbc?&#39;</span>,strings,<span class="dt">value =</span> T)</code></pre>
+<pre><code>## [1] &quot;abb&quot;   &quot;abbcd&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Atleast two occurances </span>
+<span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&#39;b{2,}?&#39;</span>,strings,<span class="dt">value =</span> T)</code></pre>
+<pre><code>## [1] &quot;abb&quot;   &quot;abbcd&quot; &quot;bbbc&quot;</code></pre>
+</div>
+<div id="character-classes" class="section level4 unnumbered">
+<h4>Character classes</h4>
+<p>A character class is a set that characterises a category of characters. They are enclosed within [] and they match one of the mentioned characters in the set. For example the character class [0-9] matches the first digit occuring in the string. Below are a set of character classes.</p>
+<table>
+<caption><span id="tab:characterclass">Table 2.3: </span>Character Class</caption>
+<thead>
+<tr class="header">
+<th align="left">Character.Class</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">[0-9]</td>
+<td align="left">Digits</td>
+</tr>
+<tr class="even">
+<td align="left">[a-z]</td>
+<td align="left">Lower-case letters</td>
+</tr>
+<tr class="odd">
+<td align="left">[A-Z]</td>
+<td align="left">Upper-case letters</td>
+</tr>
+<tr class="even">
+<td align="left">[a-zA-Z]</td>
+<td align="left">Alphabetic characters</td>
+</tr>
+<tr class="odd">
+<td align="left">[^a-zA-Z]</td>
+<td align="left">Non-alphabetic characters</td>
+</tr>
+<tr class="even">
+<td align="left">[a-zA-Z0-9]</td>
+<td align="left">Alphanumeric characters</td>
+</tr>
+<tr class="odd">
+<td align="left">[]</td>
+<td align="left">Space characters</td>
+</tr>
+<tr class="even">
+<td align="left">[!,:;`)<a href="mailto:}@-">}@-</a>]$*+.?[^{|(\\#%&amp;~_/&lt;=&gt;']</td>
+<td align="left">Punctuation characters</td>
+</tr>
+</tbody>
+</table>
+<p>Let us see some simple examples of using character classes in regular expressions.</p>
+<pre class="sourceCode r"><code class="sourceCode r">string &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;abc12&#39;</span>,<span class="st">&#39;@#$&#39;</span>,<span class="st">&#39;345&#39;</span>,<span class="st">&#39;ABcd&#39;</span>)
+<span class="co"># Matching strings containing digits</span>
+<span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&#39;[0-9]+&#39;</span>,string,<span class="dt">value =</span> T)</code></pre>
+<pre><code>## [1] &quot;abc12&quot; &quot;345&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Matching strings containing Capital letters</span>
+<span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&#39;[A-Z]+&#39;</span>,string,<span class="dt">value =</span> T)</code></pre>
+<pre><code>## [1] &quot;ABcd&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Matching strings not containing special characters</span>
+<span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&#39;[^@#$]+&#39;</span>,string,<span class="dt">value =</span> T)</code></pre>
+<pre><code>## [1] &quot;abc12&quot; &quot;345&quot;   &quot;ABcd&quot;</code></pre>
+<p>Alternatively R allows the use of POSIX character classes which are represented within [[]] (double braces).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Matching alphanumeric characters </span>
+<span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&#39;[[:alpha:]]&#39;</span>,string,<span class="dt">value =</span> T)</code></pre>
+<pre><code>## [1] &quot;abc12&quot; &quot;ABcd&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Matching upper case characters</span>
+<span class="kw">grep</span>(<span class="dt">pattern =</span> <span class="st">&#39;[[:upper:]]&#39;</span>,string,<span class="dt">value =</span> T)</code></pre>
+<pre><code>## [1] &quot;ABcd&quot;</code></pre>
+</div>
+<div id="functions-in-r-to-support-regular-expressions" class="section level3 unnumbered">
+<h3>Functions in R to Support Regular Expressions</h3>
+<p>R has a great array of functions that support regular expressions. The following is a list of functions from the base and stringr package that support regular expressions.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-18">Table 2.4: </span>Functions Supporting Regular Expressions in R</caption>
+<thead>
+<tr class="header">
+<th align="left">Function</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">grep()</td>
+<td align="left">Returns index of elements that matched</td>
+</tr>
+<tr class="even">
+<td align="left">grepl()</td>
+<td align="left">Returns boolean values indicating if a pattern exist in the string (TRUE &amp; FALSE)</td>
+</tr>
+<tr class="odd">
+<td align="left">regexpr()</td>
+<td align="left">Returns the first match of the pattern in string</td>
+</tr>
+<tr class="even">
+<td align="left">gregexpr()</td>
+<td align="left">Returns all matches of pattern in string</td>
+</tr>
+<tr class="odd">
+<td align="left">regexec()</td>
+<td align="left">Combines results of regexpr() and gregexpr()</td>
+</tr>
+<tr class="even">
+<td align="left">sub()</td>
+<td align="left">Replaces the first match of pattern with replacement</td>
+</tr>
+<tr class="odd">
+<td align="left">gsub()</td>
+<td align="left">Replaces all matches of pattern with replacement</td>
+</tr>
+<tr class="even">
+<td align="left">strsplit()</td>
+<td align="left">Split string in to vector according to pattern match</td>
+</tr>
+<tr class="odd">
+<td align="left">str_detect()</td>
+<td align="left">Detect a presence or absence of a pattern in a string</td>
+</tr>
+<tr class="even">
+<td align="left">str_extract()</td>
+<td align="left">Extracts first occurance of pattern in string.</td>
+</tr>
+<tr class="odd">
+<td align="left">str_extract_all()</td>
+<td align="left">Extracts all occurance of pattern in string.</td>
+</tr>
+<tr class="even">
+<td align="left">str_match()</td>
+<td align="left">Extract first matched group from a string</td>
+</tr>
+<tr class="odd">
+<td align="left">str_match_all()</td>
+<td align="left">Extract all matched groups from a string</td>
+</tr>
+<tr class="even">
+<td align="left">str_locate()</td>
+<td align="left">Locate the position of the frst occurence of a pattern in a string</td>
+</tr>
+<tr class="odd">
+<td align="left">str_locate_all()</td>
+<td align="left">Locate the position of all occurences of a pattern in a string</td>
+</tr>
+<tr class="even">
+<td align="left">str_replace()</td>
+<td align="left">Returns the first match of the pattern in string</td>
+</tr>
+<tr class="odd">
+<td align="left">str_replace_all()</td>
+<td align="left">Returns all matches of pattern in string</td>
+</tr>
+<tr class="even">
+<td align="left">str_split()</td>
+<td align="left">Split up a string into a variable number of pieces</td>
+</tr>
+<tr class="odd">
+<td align="left">str_split_fixed()</td>
+<td align="left">Split up a string into a fixed number of pieces</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="simple-string-operations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="maps-and-spatial-visualization.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/lunr.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"css": "css/toc.css"
+},
+"toolbar": {
+"position": "static"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

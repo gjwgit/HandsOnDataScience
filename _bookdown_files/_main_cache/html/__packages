@@ -1,0 +1,16 @@
+base
+ggplot2
+maps
+scales
+sp
+maptools
+OpenStreetMap
+ggmap
+rattle
+stringr
+raster
+rgdal
+dismo
+broom
+leaflet
+dplyr
