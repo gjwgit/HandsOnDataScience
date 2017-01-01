@@ -43,5 +43,14 @@ preview:
 	Rscript -e 'bookdown::preview_chapter("$(file)",output_format = "bookdown::gitbook")'
 	open _book/index.html
 
+%.html:
+	Rscript -e 'bookdown::preview_chapter("$*.Rmd", output_format="bookdown::gitbook")'
+
+%.pdf:
+	Rscript -e 'bookdown::preview_chapter("$*.Rmd", output_format="bookdown::pdf_book")'
+
+%.view: %.pdf
+	evince _book/_main.pdf
+
 cacheclean:
 	rm -rf cache
