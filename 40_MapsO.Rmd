@@ -4,14 +4,17 @@ knit: "bookdown::preview_chapter"
 
 # Maps and Spatial Visualization
 
-Spatial data is central to many of our tasks as Data Scientists.  Identifying patterns, correlations and relationships between those patterns delivers opportunities for delivering new
-services.  Imagine predicting common routes for travellers this morning, and dynamically routing
-public transport to meet those needs.  Fundamental to the Data Scientist is the ability to process,
-visualize and then model spatial data.  Done right maps can be a very effective communications
-tool. Numerous  R  packages  work  together  to  bring  us  a  sophisticated  mapping  and  spatial
-analysis capability.
+Spatial data is central to many of our tasks as Data Scientists.
+Identifying patterns, correlations and relationships between those
+patterns delivers opportunities for delivering new services.  Imagine
+predicting common routes for travellers this morning, and dynamically
+routing public transport to meet those needs.  Fundamental to the Data
+Scientist is the ability to process, visualize and then model spatial
+data.  Done right maps can be a very effective communications
+tool. Numerous R packages work together to bring us a sophisticated
+mapping and spatial analysis capability.
 
-```{r,results='hide',message=FALSE}
+```{r, load_packages, results='hide', message=FALSE}
 library(ggplot2)       # Plotting maps.
 library(maps)          # Map data.
 library(scales)        # For transperency Functions: alpha() comma()
@@ -27,19 +30,25 @@ knitr::opts_chunk$set(cache=TRUE)
 ```
 
 ##Geocodes {-}
-One  of  the  fundamental  things  about  spatial  data  and  mapping  is  the  geographic  coordinate
-system  used  to  uniquely  identify  locations. We  use  longitude  (x  axis,  abbreviated  lon)  and
-latitude (y axis, abbreviated lat) for locations on our planet.  The longitude is the angle from the
-meridian through Greenwich and the latitude is the angle from the equator.  We can use street addresses and locations.  Here are a few examples.
-```{r,message=FALSE}
+
+One of the fundamental things about spatial data and mapping is the
+geographic coordinate system used to uniquely identify locations. We
+use longitude (x axis, abbreviated lon) and latitude (y axis,
+abbreviated lat) for locations on our planet.  The longitude is the
+angle from the meridian through Greenwich and the latitude is the
+angle from the equator.  We can use street addresses and locations.
+Here are a few examples.
+
+```{r, message=FALSE}
 geocode("Singapore")
 geocode("11 Bunda Street, Canberra")
-geocode("Raffles Place",output="more")
+geocode("Raffles Place", output="more")
 ```
 
 For later use we will save some of our locations.
-```{r,message=FALSE}
-(cityhall <- as.numeric(geocode("City Hall,Singapore")))
+
+```{r, message=FALSE}
+(cityhall <- as.numeric(geocode("City Hall, Singapore")))
 (raffles <- as.numeric(geocode("Raffles Place")))
 (sentosa <- as.numeric(geocode("Sentosa")))
 ```
@@ -47,19 +56,19 @@ For later use we will save some of our locations.
 ## World Map {-}
 
 The data for plotting the World map comes from the maps (Brownrigg, 2014) package. We load the vector data for plotting a world map using map_data().
-```{r,message=FALSE}
+```{r, message=FALSE}
 ds <- map_data("world")
 head(ds)
 ```
 
 It is quite simple to plot the world map using ggplot2 (Wickham and Chang, 2014).
-```{r,message=FALSE}
-p <- ggplot(ds, aes(x=long,y=lat,group=group)) + geom_polygon()
+```{r, message=FALSE}
+p <- ggplot(ds, aes(x=long, y=lat, group=group)) + geom_polygon()
 p
 ```
 
 Let us add some colour based on regions. Now there are many regions, so for the same of aesthecity we will turn off the legend.
-```{r,message=FALSE}
+```{r, message=FALSE}
 
 p  <-   ggplot(ds, aes(x=long, y=lat, group=group, fill=region)) +
         geom_polygon() +
@@ -85,50 +94,46 @@ Let us visualize the streets and places of Singapore. We can obtain the data fro
 
 
 ```{r}
-shpfile <- readOGR(dsn='data/street-and-places/','StreetsandPlaces')
-head(coordinates(shpfile),5)
+shpfile <- readOGR(dsn='data/street-and-places/', 'StreetsandPlaces')
+head(coordinates(shpfile), 5)
 ```
 
 It is observed that the projection system is different than the base map. So we shall transform the projection in to Web Mercator. 
 ```{r}
 crsobj    <- CRS("+proj=longlat +datum=WGS84")   # Web Mercator projection system
-shpfile.t <- spTransform(shpfile,crsobj)      # Applying projection transformation
+shpfile.t <- spTransform(shpfile, crsobj)      # Applying projection transformation
 df        <- as.data.frame(coordinates(shpfile.t))   # Converting to a data frame
-head(df,5)
+head(df, 5)
 ```
 
 Now it looks fine to be projected on top of the base map.
 
-```{r,warning=F}
+```{r, warning=FALSE}
 sgmap <- get_map(location="Singapore", zoom=11,   
                  maptype="roadmap", source="osm") # Using Osm base map of Singapore
-p <- ggmap(sgmap) +
-	   geom_point(data=df,
-	       aes(x=coords.x1, y=coords.x2),
-	       color='orange',size=1)
-p
+ggmap(sgmap) +
+  geom_point(data=df,
+             aes(x=coords.x1, y=coords.x2),
+             color='orange', size=1)
 ```
-
-
-
-
 
 ## Annotating Location on a Map {-}
 
-We shall plot the location of Sentosa and annotate it with a location landmark and text.
+We shall plot the location of Sentosa and annotate it with a location
+landmark and text.
 
-```{r,message=FALSE}
+```{r, message=FALSE}
 addr <- 'Sentosa' 
 loc  <- as.numeric(geocode(addr))
-map  <- get_map(loc,zoom=15, maptype='satellite',source='osm')
+map  <- get_map(loc, zoom=15, maptype='satellite', source='osm')
 lbl  <- data.frame(lon=loc[1], lat=loc[2], text=addr)
-p    <- ggmap(map) +
-        geom_text(data=lbl, aes(x=lon, y=lat, label=text),
-                  colour='blue', vjust=1.5) +
-        geom_point(data=lbl, aes(x=lon, y=lat),
-                   colour='red', size=3) +
-        xlab('Longitude') + ylab('Latitude')
-p
+
+ggmap(map) +
+  geom_text(data=lbl, aes(x=lon, y=lat, label=text),
+            colour='blue', vjust=1.5) +
+  geom_point(data=lbl, aes(x=lon, y=lat),
+             colour='red', size=3) +
+  xlab('Longitude') + ylab('Latitude')
 ```
 
 ## Plotting Polygons and HeatMaps{-}
@@ -137,43 +142,46 @@ Let us plot the male population from the subzone male population <a href="https:
 We shall first plot the spatial boundaries of the polygon and then overlay the gradients of male population over it.
 
 
-```{r,message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 sg.popul.spdf <- readOGR(dsn='data/subzone-age-male-2016',
-                        'SUBZONE_AGE_MALE_2016',verbose=F)
+                        'SUBZONE_AGE_MALE_2016', verbose=FALSE)
 # Transforming to WSG1984
 sg.popul.spdf <- spTransform(sg.popul.spdf, CRSobj=crsobj)
 # Converting spatialPolygon to DataFrame
 sg.df <- tidy(sg.popul.spdf)
 sg.df$id <- as.integer(sg.df$id)
 # Creating a dataframe containing the Population data 
-sg.data <- data.frame(Population=cut_number(sg.popul.spdf$TOTAL,3),
+sg.data <- data.frame(Population=cut_number(sg.popul.spdf$TOTAL, 3),
            ZONE=sg.popul.spdf$SUBZONE_N,
            id=sg.popul.spdf$OBJECTID)
 # Merging the two datasets
-sg.df   <- merge(sg.df,sg.data,by='id')
+sg.df   <- merge(sg.df, sg.data, by='id')
 p       <- ggmap(sgmap)
 pop.plt <- p + geom_polygon(data=sg.df, aes(x= long, y=lat, fill=Population))
 pop.plt <- pop.plt + theme(line=element_blank(),
            axis.title=element_blank(),
            axis.text=element_blank(),
            title=element_text(hjust=0.5)) +
-           scale_fill_brewer(palette=1,type='seq') +
+           scale_fill_brewer(palette=1, type='seq') +
            ggtitle('Male Population Singapore 2016') 
 pop.plt
 ```
 
 ## Interactive Maps with Leaflet {-}
 
-Earlier we saw a static visualization of places in Singapore now we can explore an interactive version of the same using leaflet.
+Earlier we saw a static visualization of places in Singapore now we
+can explore an interactive version of the same using leaflet.
 
-```{r}
+
+```{r, leaflet_example, eval=FALSE}
 library(leaflet)
 
 smpl <- sample_n(df, size=30)
-leaflet() %>% addTiles() %>% 
-            addMarkers(data=smpl,lng=smpl$coords.x1,
-                          lat=smpl$coords.x2)
-
+leaflet() %>%
+  addTiles() %>% 
+  addMarkers(data=smpl,
+             lng=smpl$coords.x1,
+             lat=smpl$coords.x2)
 ```
 
 
