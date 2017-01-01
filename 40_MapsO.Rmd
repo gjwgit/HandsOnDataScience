@@ -26,6 +26,9 @@ library(dplyr)         # For sample function
 library(OpenStreetMap) # OSM maps
 library(ggmap)         # Google maps
 library(leaflet)       # Interactive Viz
+library(magrittr)      # XXXX.
+```
+```{r, turn_on_cache, echo=FALSE, results='hide'}
 knitr::opts_chunk$set(cache=TRUE)
 ```
 
@@ -48,9 +51,9 @@ geocode("Raffles Place", output="more")
 For later use we will save some of our locations.
 
 ```{r, message=FALSE}
-(cityhall <- as.numeric(geocode("City Hall, Singapore")))
-(raffles <- as.numeric(geocode("Raffles Place")))
-(sentosa <- as.numeric(geocode("Sentosa")))
+cityhall <- as.numeric(geocode("City Hall, Singapore")) %T>% print()
+raffles <- as.numeric(geocode("Raffles Place")) %T>% print()
+sentosa <- as.numeric(geocode("Sentosa")) %T>% print()
 ```
 
 ## World Map {-}
@@ -77,9 +80,16 @@ p  <-   ggplot(ds, aes(x=long, y=lat, group=group, fill=region)) +
 
 ## Understanding Spatial Data {-}
 
-Spatial data involves a combination of information about locations and geometric features related that best describe the location. The most commonly used formats to store spatial information are Raster and Vector. 
-A Raster format is a type of digital image represented by grids which can be reduced and enlarged. They are made up of a matrix of pixels with each pixel representing an area within the spatial object. 
-      A Vector format consists of geometric shapes organized in the form of shapefiles. A shapefile consist of three files under the extensions .shp, .shx and .dbf which contain the features, indices of shapes and attributes respectively.
+Spatial data involves a combination of information about locations and
+geometric features related that best describe the location. The most
+commonly used formats to store spatial information are Raster and
+Vector.  A Raster format is a type of digital image represented by
+grids which can be reduced and enlarged. They are made up of a matrix
+of pixels with each pixel representing an area within the spatial
+object.  A Vector format consists of geometric shapes organized in the
+form of shapefiles. A shapefile consist of three files under the
+extensions .shp, .shx and .dbf which contain the features, indices of
+shapes and attributes respectively.
       
 ### Plotting Raster Data{-}
 We shall use the getData function in the dismo package to obtain  altitude data of Australia and plot them.
