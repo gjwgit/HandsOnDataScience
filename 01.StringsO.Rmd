@@ -8,7 +8,7 @@ In this module we introduce to tools available in R for handling and
 processing strings.  The required packages for this module include:
 
 ```{r results='hide', message=FALSE}
-library(rattle) # The weather dataset.
+library(rattle)  # The weather dataset.
 library(stringr) # Pre-eminent package for string handling.
 ```
 
@@ -26,7 +26,9 @@ complex objects into character type and then concatenates.
 ```{r, eval=TRUE}
 cat("hello", "world", sep="\t")
 
-x <- 123 # Using numeric values with cat
+# Using numeric values with cat().
+
+x <- 123
 cat ("hello", x, sep="\t")
 ```
 
@@ -36,12 +38,12 @@ Alternatively we can use the **paste()** function to concatenate and
 print the values to screen.
 
 ```{r}
-paste("hello", "world",  sep="\t") # Usage paste function
+paste("hello", "world", sep="\t")
 ```
 
 The major disadvantage of the paste function is that it does not
 handle null characters effectively. It converts the NULL character as
-a space instead of treating it appropriately.
+a space instead of treating it appropriately. **WHAT IS APPROPRIATE?**
 
 ```{r}
 paste('hello', NULL, 'world')
