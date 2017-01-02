@@ -12,9 +12,14 @@ description: "Hands on Data Science with R is a practical and hands on guide to 
 
 # Introduction
 
-Data Science is a forest of skills to learn and master. Hands on Data Science with R is a survival guide to data science using R. This book will teach you the practical skills and best practices of data science - With comprehensive and carefully curated solutions to most data science problems, this book provides you a swiss army knife to cut throught the forest.
+Data Science is a forest of skills to learn and master. Hands on Data
+Science with R is a survival guide to data science using R. This book
+will teach you the practical skills and best practices of data science
+- With comprehensive and carefully curated solutions to most data
+science problems, this book provides you a swiss army knife to cut
+throught the forest.
 
-```{r echo=FALSE, out.width="33%",fig.align='center'}
+```{r include_graphics, echo=FALSE, out.width="33%", fig.align='center'}
 knitr::include_graphics("graphics/book-cover-A4.png")
 ```
 
