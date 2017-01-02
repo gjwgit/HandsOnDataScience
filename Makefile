@@ -3,6 +3,14 @@
 #
 # Deal with Knitr and bookdown
 
+# We are using different operating systems!
+
+OS := $(shell uname)
+ifeq ($(OS), Darwin)
+ PDF_VIEW := open
+else
+ PDF_VIEW := evince
+endif
 
 help:
 	@echo "\n\tManage Hands On Data Science Modules\n\
@@ -22,7 +30,7 @@ html:
 	open _book/index.html
 pdf:
 	Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
-	open _book/_main.pdf
+	$(PDF_VIEW) _book/_main.pdf &
 
 md:
 	Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book",clean=FALSE)'
@@ -50,7 +58,7 @@ preview:
 	Rscript -e 'bookdown::preview_chapter("$*.Rmd", output_format="bookdown::pdf_book")'
 
 %.view: %.pdf
-	evince _book/_main.pdf
+	$(PDF_VIEW) _book/_main.pdf &
 
 cacheclean:
 	rm -rf cache
