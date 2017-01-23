@@ -130,7 +130,8 @@ x
 
 ###str_sub {.unnumbered}
 
-The stringr package offers **str_sub()** which is a equivalent of substring(). The str\_sub() function handles negative values even more robustly than the substring() function.
+The stringr package offers **str_sub()** which is a equivalent of substring(). 
+The str\_sub() function handles negative values even more robustly than the substring() function.
 
 ```{r Example 10: str_sub function}
 y <- c("string", "manipulation", "always", "fascinating")
@@ -220,7 +221,7 @@ grep(pattern='\\$', string, value=TRUE) # Matching the metacharacter $
 
 Quantifiers are used to match repitition of pattern within a string. The following table shows a list of quantifiers.
 
-```{r Table 2: quantifiers, echo=FALSE, quantifiers,  echo=FALSE}
+```{r Table 1: quantifiers, echo=FALSE}
 quantifier <- read.table(file='tables/quantifier.csv', header=TRUE, sep='\t')
 knitr::kable(
    quantifier,
