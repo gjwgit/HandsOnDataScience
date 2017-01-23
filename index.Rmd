@@ -1,6 +1,5 @@
 --- 
 title: "Hands on Data Science with R"
-author: ["Graham Williams", "Karthik Thirumalai"]
 knit: "bookdown::render_book"
 site: bookdown::bookdown_site
 documentclass: book

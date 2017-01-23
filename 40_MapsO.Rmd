@@ -14,7 +14,7 @@ data.  Done right maps can be a very effective communications
 tool. Numerous R packages work together to bring us a sophisticated
 mapping and spatial analysis capability.
 
-```{r, load_packages, results='hide', message=FALSE}
+```{r loading packages, results='hide', message=FALSE}
 library(ggplot2)       # Plotting maps.
 library(maps)          # Map data.
 library(scales)        # For transperency Functions: alpha() comma()
@@ -42,7 +42,7 @@ angle from the meridian through Greenwich and the latitude is the
 angle from the equator.  We can use street addresses and locations.
 Here are a few examples.
 
-```{r, message=FALSE}
+```{r geocodes, message=FALSE}
 geocode("Singapore")
 geocode("11 Bunda Street, Canberra")
 geocode("Raffles Place", output="more")
@@ -50,7 +50,7 @@ geocode("Raffles Place", output="more")
 
 For later use we will save some of our locations.
 
-```{r, message=FALSE}
+```{r geocodes1, message=FALSE}
 cityhall <- as.numeric(geocode("City Hall, Singapore")) %T>% print()
 raffles <- as.numeric(geocode("Raffles Place")) %T>% print()
 sentosa <- as.numeric(geocode("Sentosa")) %T>% print()
@@ -59,23 +59,24 @@ sentosa <- as.numeric(geocode("Sentosa")) %T>% print()
 ## World Map {-}
 
 The data for plotting the World map comes from the maps (Brownrigg, 2014) package. We load the vector data for plotting a world map using map_data().
-```{r, message=FALSE}
+```{r get world map, message=FALSE}
 ds <- map_data("world")
 head(ds)
 ```
 
 It is quite simple to plot the world map using ggplot2 (Wickham and Chang, 2014).
-```{r, message=FALSE}
+```{r world map, message=FALSE}
 p <- ggplot(ds, aes(x=long, y=lat, group=group)) + geom_polygon()
 p
 ```
 
 Let us add some colour based on regions. Now there are many regions, so for the same of aesthecity we will turn off the legend.
-```{r, message=FALSE}
+```{r coloured world map, message=FALSE}
 
 p  <-   ggplot(ds, aes(x=long, y=lat, group=group, fill=region)) +
         geom_polygon() +
         theme(legend.position="none")
+p
 ```
 
 ## Understanding Spatial Data {-}
@@ -93,7 +94,7 @@ shapes and attributes respectively.
       
 ### Plotting Raster Data{-}
 We shall use the getData function in the dismo package to obtain  altitude data of Australia and plot them.
-```{r}
+```{r raster plot}
 aust <- getData('alt', country='Australia', mask=TRUE)
 plot(aust)
 ```
@@ -103,13 +104,13 @@ plot(aust)
 Let us visualize the streets and places of Singapore. We can obtain the data from <a href="https://data.gov.sg/dataset/street-and-places">data.gov.sg </a>. We shall project it on top of a base map obtained from OpenStreetMap. 
 
 
-```{r}
+```{r plot shapefile}
 shpfile <- readOGR(dsn='data/street-and-places/', 'StreetsandPlaces')
 head(coordinates(shpfile), 5)
 ```
 
 It is observed that the projection system is different than the base map. So we shall transform the projection in to Web Mercator. 
-```{r}
+```{r coordinate transform}
 crsobj    <- CRS("+proj=longlat +datum=WGS84")   # Web Mercator projection system
 shpfile.t <- spTransform(shpfile, crsobj)      # Applying projection transformation
 df        <- as.data.frame(coordinates(shpfile.t))   # Converting to a data frame
@@ -118,9 +119,9 @@ head(df, 5)
 
 Now it looks fine to be projected on top of the base map.
 
-```{r, warning=FALSE}
+```{r get Singapore map, warning=FALSE}
 sgmap <- get_map(location="Singapore", zoom=11,   
-                 maptype="roadmap", source="osm") # Using Osm base map of Singapore
+                 maptype="roadmap", source="google") # Using Osm base map of Singapore
 ggmap(sgmap) +
   geom_point(data=df,
              aes(x=coords.x1, y=coords.x2),
@@ -132,10 +133,10 @@ ggmap(sgmap) +
 We shall plot the location of Sentosa and annotate it with a location
 landmark and text.
 
-```{r, message=FALSE}
+```{r annotation, message=FALSE}
 addr <- 'Sentosa' 
 loc  <- as.numeric(geocode(addr))
-map  <- get_map(loc, zoom=15, maptype='satellite', source='osm')
+map  <- get_map(loc, zoom=15, maptype='satellite', source='google')
 lbl  <- data.frame(lon=loc[1], lat=loc[2], text=addr)
 
 ggmap(map) +
@@ -152,7 +153,7 @@ Let us plot the male population from the subzone male population <a href="https:
 We shall first plot the spatial boundaries of the polygon and then overlay the gradients of male population over it.
 
 
-```{r, message=FALSE, warning=FALSE}
+```{r heatmaps, message=FALSE, warning=FALSE}
 sg.popul.spdf <- readOGR(dsn='data/subzone-age-male-2016',
                         'SUBZONE_AGE_MALE_2016', verbose=FALSE)
 # Transforming to WSG1984
@@ -183,7 +184,7 @@ Earlier we saw a static visualization of places in Singapore now we
 can explore an interactive version of the same using leaflet.
 
 
-```{r, leaflet_example, eval=FALSE}
+```{r interactive maps, leaflet_example, eval=FALSE}
 library(leaflet)
 
 smpl <- sample_n(df, size=30)
