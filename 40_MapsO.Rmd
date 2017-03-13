@@ -15,7 +15,7 @@ data.  Done right maps can be a very effective communications
 tool. Numerous R packages work together to bring us a sophisticated
 mapping and spatial analysis capability.
 
-```{r loading packages, results='hide', message=FALSE}
+```{r packages, results='hide', message=FALSE}
 library(ggplot2)       # Plotting maps.
 library(maps)          # Map data.
 library(scales)        # For transperency Functions: alpha() comma()
@@ -67,13 +67,13 @@ head(ds)
 ```
 
 It is quite simple to plot the world map using ggplot2 (Wickham and Chang, 2014).
-```{r world map, message=FALSE}
+```{r world_map, message=FALSE}
 p <- ggplot(ds, aes(x=long, y=lat, group=group)) + geom_polygon()
 p
 ```
 
 Let us add some colour based on regions. Now there are many regions, so for the same of aesthecity we will turn off the legend.
-```{r coloured world map, message=FALSE}
+```{r coloured_world_map, message=FALSE}
 
 p  <-   ggplot(ds, aes(x=long, y=lat, group=group, fill=region)) +
         geom_polygon() +
@@ -96,7 +96,7 @@ shapes and attributes respectively.
       
 ### Plotting Raster Data{-}
 We shall use the getData function in the dismo package to obtain  altitude data of Australia and plot them.
-```{r raster plot}
+```{r raster_plot}
 aust <- getData('alt', country='Australia', mask=TRUE)
 plot(aust)
 ```
@@ -112,7 +112,7 @@ head(coordinates(shpfile), 5)
 ```
 
 It is observed that the projection system is different than the base map. So we shall transform the projection in to Web Mercator. 
-```{r coordinate transform}
+```{r coordinate_transform}
 crsobj       <- CRS("+proj=longlat +datum=WGS84")   # Web Mercator projection system
 shpfile.t    <- spTransform(shpfile, crsobj)      # Applying projection transformation
 df           <- as.data.frame(coordinates(shpfile.t))   # Converting to a data frame
@@ -162,7 +162,7 @@ modify the code to display various statistics from the data.
 First we take a copy of the USArrests dataset and lowercase the variables and the state names
 to make the matching across dierent datasets uniform.
 
-```{r USA Arrests data prep}
+```{r data_prep}
 arrests <- USArrests
 names(arrests) <- tolower(names(arrests))
 arrests$region <- tolower(rownames(USArrests))
@@ -175,7 +175,7 @@ head(arrests)
 ```
 Then we merge the statistics with the spatial data in readiness for mapping.
 
-```{r stats merge, message=FALSE, warning=FALSE}
+```{r stats_merge, message=FALSE, warning=FALSE}
 states <- map_data("state")
 ds <- merge(states, arrests, sort=FALSE, by="region")
 head(ds)
@@ -185,7 +185,7 @@ Once we have the data ready, plotting it simply requires nominating the dataset,
 the x and y as long and lat respectively. We also need to identify the grouping, which is by state,
 and so the fill is then specified for each state to indicate the statistic of interest.
 
-```{r polygon plot}
+```{r polygon_plot}
 g <- ggplot(ds, aes(x=long, y=lat, group=group, 
               fill=assault/murder)) + geom_polygon()
 g + xlab('Logitude') + ylab('Latitude')
@@ -197,7 +197,7 @@ Earlier we saw a static visualization of places in Singapore now we
 can explore an interactive version of the same using leaflet.
 
 
-```{r interactive maps}
+```{r interactive_maps}
 library(leaflet)
 
 hundred.places     <- df[1:100,] 
