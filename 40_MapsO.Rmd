@@ -1,5 +1,6 @@
 ---
 knit: "bookdown::preview_chapter"
+runtime: "shiny"
 ---
 
 # Maps and Spatial Visualization
@@ -25,7 +26,8 @@ library(rgdal)         # For shapefiles
 library(dplyr)         # For sample function
 library(OpenStreetMap) # OSM maps
 library(ggmap)         # Google maps
-library(leaflet)       # Interactive Viz
+library(leaflet)       # Interactive Maps
+library(shiny)         # Interactive Viz
 library(magrittr)      # XXXX.
 ```
 ```{r, turn_on_cache, echo=FALSE, results='hide'}
@@ -111,9 +113,14 @@ head(coordinates(shpfile), 5)
 
 It is observed that the projection system is different than the base map. So we shall transform the projection in to Web Mercator. 
 ```{r coordinate transform}
-crsobj    <- CRS("+proj=longlat +datum=WGS84")   # Web Mercator projection system
-shpfile.t <- spTransform(shpfile, crsobj)      # Applying projection transformation
-df        <- as.data.frame(coordinates(shpfile.t))   # Converting to a data frame
+crsobj       <- CRS("+proj=longlat +datum=WGS84")   # Web Mercator projection system
+shpfile.t    <- spTransform(shpfile, crsobj)      # Applying projection transformation
+df           <- as.data.frame(coordinates(shpfile.t))   # Converting to a data frame
+df$Name      <- shpfile$NAME # Adding names of the location
+df$Longitude <- df$coords.x1
+df$Latitude  <- df$coords.x2
+df$coords.x1 <- NULL
+df$coords.x2 <- NULL
 head(df, 5)
 ```
 
@@ -124,7 +131,7 @@ sgmap <- get_map(location="Singapore", zoom=11,
                  maptype="roadmap", source="google") # Using Osm base map of Singapore
 ggmap(sgmap) +
   geom_point(data=df,
-             aes(x=coords.x1, y=coords.x2),
+             aes(x=Longitude, y=Latitude),
              color='orange', size=1)
 ```
 
@@ -143,39 +150,45 @@ ggmap(map) +
   geom_text(data=lbl, aes(x=lon, y=lat, label=text),
             colour='blue', vjust=1.5) +
   geom_point(data=lbl, aes(x=lon, y=lat),
-             colour='red', size=3) +
-  xlab('Longitude') + ylab('Latitude')
+             colour='red', size=3) 
+ 
 ```
 
 ## Plotting Polygons and HeatMaps{-}
 
-Let us plot the male population from the subzone male population <a href="https://data.gov.sg/dataset/singapore-residents-by-subzone-age-group-and-sex-june-2016-male">dataset</a> of Singapore.
-We shall first plot the spatial boundaries of the polygon and then overlay the gradients of male population over it.
+This example comes from the help page for map data() from ggplot2 (Wickham and Chang,
+2014). It shows the number of assaults per murder in each US state, though it is quite easy to
+modify the code to display various statistics from the data.
+First we take a copy of the USArrests dataset and lowercase the variables and the state names
+to make the matching across dierent datasets uniform.
 
+```{r USA Arrests data prep}
+arrests <- USArrests
+names(arrests) <- tolower(names(arrests))
+arrests$region <- tolower(rownames(USArrests))
+head(arrests)
+## murder assault urbanpop rape region
+## Alabama 13.2 236 58 21.2 alabama
+## Alaska 10.0 263 48 44.5 alaska
+## Arizona 8.1 294 80 31.0 arizona
 
-```{r heatmaps, message=FALSE, warning=FALSE}
-sg.popul.spdf <- readOGR(dsn='data/subzone-age-male-2016',
-                        'SUBZONE_AGE_MALE_2016', verbose=FALSE)
-# Transforming to WSG1984
-sg.popul.spdf <- spTransform(sg.popul.spdf, CRSobj=crsobj)
-# Converting spatialPolygon to DataFrame
-sg.df <- tidy(sg.popul.spdf)
-sg.df$id <- as.integer(sg.df$id)
-# Creating a dataframe containing the Population data 
-sg.data <- data.frame(Population=cut_number(sg.popul.spdf$TOTAL, 3),
-           ZONE=sg.popul.spdf$SUBZONE_N,
-           id=sg.popul.spdf$OBJECTID)
-# Merging the two datasets
-sg.df   <- merge(sg.df, sg.data, by='id')
-p       <- ggmap(sgmap)
-pop.plt <- p + geom_polygon(data=sg.df, aes(x= long, y=lat, fill=Population))
-pop.plt <- pop.plt + theme(line=element_blank(),
-           axis.title=element_blank(),
-           axis.text=element_blank(),
-           title=element_text(hjust=0.5)) +
-           scale_fill_brewer(palette=1, type='seq') +
-           ggtitle('Male Population Singapore 2016') 
-pop.plt
+```
+Then we merge the statistics with the spatial data in readiness for mapping.
+
+```{r stats merge, message=FALSE, warning=FALSE}
+states <- map_data("state")
+ds <- merge(states, arrests, sort=FALSE, by="region")
+head(ds)
+```
+
+Once we have the data ready, plotting it simply requires nominating the dataset, and identifying
+the x and y as long and lat respectively. We also need to identify the grouping, which is by state,
+and so the fill is then specified for each state to indicate the statistic of interest.
+
+```{r polygon plot}
+g <- ggplot(ds, aes(x=long, y=lat, group=group, 
+              fill=assault/murder)) + geom_polygon()
+g + xlab('Logitude') + ylab('Latitude')
 ```
 
 ## Interactive Maps with Leaflet {-}
@@ -184,16 +197,18 @@ Earlier we saw a static visualization of places in Singapore now we
 can explore an interactive version of the same using leaflet.
 
 
-```{r interactive maps, leaflet_example, eval=FALSE}
+```{r interactive maps}
 library(leaflet)
 
-smpl <- sample_n(df, size=30)
-leaflet() %>%
-  addTiles() %>% 
-  addMarkers(data=smpl,
-             lng=smpl$coords.x1,
-             lat=smpl$coords.x2)
+hundred.places     <- df[1:100,] 
+hundred.places.viz <- leaflet() %>%
+                        addTiles() %>% 
+                        addMarkers(data=hundred.places,
+                        lng=hundred.places$Longitude,
+                        lat=hundred.places$Latitude)
+hundred.places.viz
 ```
+
 
 
 
