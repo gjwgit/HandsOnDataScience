@@ -23,7 +23,7 @@ The **cat()** function concatenates objects and could also print them
 to screen or to a file. By default it converts even numeric and other
 complex objects into character type and then concatenates.
 
-```{r Example 1: cat() function, , eval=TRUE}
+```{r Example 1: cat() function, eval=TRUE}
 cat("hello", "world", sep="\t")
 
 # Using numeric values with cat().
