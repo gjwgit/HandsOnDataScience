@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Hands on Data Science with R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Hands on Data Science with R is a practical and hands on guide to data science with R">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Hands on Data Science with R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="graphics/book-cover-A4.png" />
+  <meta property="og:description" content="Hands on Data Science with R is a practical and hands on guide to data science with R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Hands on Data Science with R" />
+  
+  <meta name="twitter:description" content="Hands on Data Science with R is a practical and hands on guide to data science with R" />
+  <meta name="twitter:image" content="graphics/book-cover-A4.png" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="string-concatenation.html">
+<link rel="next" href="case-conversion.html">
+
+<script src="assets/jquery-2.2.3/jquery.min.js"></script>
+<link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="assets/htmlwidgets-0.9/htmlwidgets.js"></script>
+<link href="assets/leaflet-0.7.7/leaflet.css" rel="stylesheet" />
+<script src="assets/leaflet-0.7.7/leaflet.js"></script>
+<link href="assets/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<link href="assets/leaflet-label-0.2.2/leaflet.label.css" rel="stylesheet" />
+<script src="assets/leaflet-label-0.2.2/leaflet.label.js"></script>
+<script src="assets/Proj4Leaflet-0.7.2/proj4-compressed.js"></script>
+<script src="assets/Proj4Leaflet-0.7.2/proj4leaflet.js"></script>
+<script src="assets/leaflet-binding-1.1.0.9000/leaflet.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="strings-manipulation.html"><a href="strings-manipulation.html"><i class="fa fa-check"></i><b>2</b> Strings Manipulation</a><ul>
+<li class="chapter" data-level="" data-path="string-concatenation.html"><a href="string-concatenation.html"><i class="fa fa-check"></i>String Concatenation</a><ul>
+<li class="chapter" data-level="" data-path="string-concatenation.html"><a href="string-concatenation.html#cat"><i class="fa fa-check"></i>cat</a></li>
+<li class="chapter" data-level="" data-path="string-concatenation.html"><a href="string-concatenation.html#paste"><i class="fa fa-check"></i>paste</a></li>
+<li class="chapter" data-level="" data-path="string-concatenation.html"><a href="string-concatenation.html#str_c"><i class="fa fa-check"></i>str_c</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="string-length.html"><a href="string-length.html"><i class="fa fa-check"></i>String Length</a><ul>
+<li class="chapter" data-level="" data-path="string-length.html"><a href="string-length.html#nchar"><i class="fa fa-check"></i>nchar</a></li>
+<li class="chapter" data-level="" data-path="string-length.html"><a href="string-length.html#str_length"><i class="fa fa-check"></i>str_length</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="case-conversion.html"><a href="case-conversion.html"><i class="fa fa-check"></i>Case Conversion</a></li>
+<li class="chapter" data-level="" data-path="substring-operation.html"><a href="substring-operation.html"><i class="fa fa-check"></i>Substring Operation</a><ul>
+<li><a href="substring-operation.html#substr"><strong>substr</strong></a></li>
+<li><a href="substring-operation.html#substring"><strong>substring</strong></a></li>
+<li class="chapter" data-level="" data-path="substring-operation.html"><a href="substring-operation.html#str_sub"><i class="fa fa-check"></i>str_sub</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="simple-string-operations.html"><a href="simple-string-operations.html"><i class="fa fa-check"></i>Simple String Operations</a><ul>
+<li class="chapter" data-level="" data-path="simple-string-operations.html"><a href="simple-string-operations.html#string-trimming"><i class="fa fa-check"></i>String Trimming</a></li>
+<li class="chapter" data-level="" data-path="simple-string-operations.html"><a href="simple-string-operations.html#string-padding"><i class="fa fa-check"></i>String Padding</a></li>
+<li class="chapter" data-level="" data-path="simple-string-operations.html"><a href="simple-string-operations.html#string-wrapping"><i class="fa fa-check"></i>String Wrapping</a></li>
+<li class="chapter" data-level="" data-path="simple-string-operations.html"><a href="simple-string-operations.html#extracting-words"><i class="fa fa-check"></i>Extracting Words</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regular-expressions.html"><a href="regular-expressions.html"><i class="fa fa-check"></i>Regular Expressions</a><ul>
+<li class="chapter" data-level="" data-path="regular-expressions.html"><a href="regular-expressions.html#functions-in-r-to-support-regular-expressions"><i class="fa fa-check"></i>Functions in R to Support Regular Expressions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="maps-and-spatial-visualization.html"><a href="maps-and-spatial-visualization.html"><i class="fa fa-check"></i><b>3</b> Maps and Spatial Visualization</a><ul>
+<li class="chapter" data-level="" data-path="geocodes.html"><a href="geocodes.html"><i class="fa fa-check"></i>Geocodes</a></li>
+<li class="chapter" data-level="" data-path="world-map.html"><a href="world-map.html"><i class="fa fa-check"></i>World Map</a></li>
+<li class="chapter" data-level="" data-path="understanding-spatial-data.html"><a href="understanding-spatial-data.html"><i class="fa fa-check"></i>Understanding Spatial Data</a><ul>
+<li class="chapter" data-level="" data-path="understanding-spatial-data.html"><a href="understanding-spatial-data.html#plotting-raster-data"><i class="fa fa-check"></i>Plotting Raster Data</a></li>
+<li class="chapter" data-level="" data-path="understanding-spatial-data.html"><a href="understanding-spatial-data.html#plotting-shapefiles"><i class="fa fa-check"></i>Plotting Shapefiles</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="annotating-location-on-a-map.html"><a href="annotating-location-on-a-map.html"><i class="fa fa-check"></i>Annotating Location on a Map</a></li>
+<li class="chapter" data-level="" data-path="plotting-polygons-and-heatmaps.html"><a href="plotting-polygons-and-heatmaps.html"><i class="fa fa-check"></i>Plotting Polygons and HeatMaps</a></li>
+<li class="chapter" data-level="" data-path="interactive-maps-with-leaflet.html"><a href="interactive-maps-with-leaflet.html"><i class="fa fa-check"></i>Interactive Maps with Leaflet</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Hands on Data Science with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="string-length" class="section level2 unnumbered">
+<h2>String Length</h2>
+<div id="nchar" class="section level3 unnumbered">
+<h3>nchar</h3>
+<p>The <strong>nchar()</strong> function in the base package is used to measure the typical length of the string. One major issues is it’s inability to handle factor values robustly.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nchar</span>(<span class="st">&#39;hello world&#39;</span>) <span class="co"># Usage of the nchar function.</span></code></pre></div>
+<pre><code>## [1] 11</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">factor.Example &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;success&quot;</span>, <span class="st">&quot;fail&quot;</span>))
+<span class="kw">nchar</span>(factor.Example) <span class="co"># Using nchar function with factors.</span></code></pre></div>
+<pre><code>## Error in nchar(factor.Example): &#39;nchar()&#39; requires a character vector</code></pre>
+</div>
+<div id="str_length" class="section level3 unnumbered">
+<h3>str_length</h3>
+<p>Alternatively <strong>str_length()</strong> package could also be used to measure string lengths. In comparisson the str_length() package handles NA characters more accurately as nchar(NA) returns 2 while str_length() returns NA and also handles factor values appropriately.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_length</span>(<span class="st">&#39;hello world&#39;</span>) <span class="co"># Usage of the str_length function.</span></code></pre></div>
+<pre><code>## [1] 11</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_length</span>(factor_example) <span class="co"># Using str_length with factor variables.</span></code></pre></div>
+<pre><code>## Error in stri_length(string): object &#39;factor_example&#39; not found</code></pre>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="string-concatenation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="case-conversion.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/lunr.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"css": "css/toc.css"
+},
+"toolbar": {
+"position": "static"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
