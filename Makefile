@@ -27,7 +27,7 @@ help:
         "
 html:
 	Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook")'
-	open _book/index.html
+	open docs/index.html
 pdf:
 	Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")'
 	$(PDF_VIEW) _book/_main.pdf &
@@ -41,7 +41,7 @@ clean:
 
 realclean:
 	make clean && rm -fvr rsconnect
-	rm -rf _book/* *.pdf *.html
+	rm -rf docs/* *.pdf *.html
 
 preview:
 	@ if ["$(file)" == ""]; then \

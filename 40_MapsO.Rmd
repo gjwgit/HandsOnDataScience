@@ -15,7 +15,7 @@ data.  Done right maps can be a very effective communications
 tool. Numerous R packages work together to bring us a sophisticated
 mapping and spatial analysis capability.
 
-```{r packages, results='hide', message=FALSE}
+```{r packages, results='hide', message=FALSE,warning=FALSE}
 library(ggplot2)       # Plotting maps.
 library(maps)          # Map data.
 library(scales)        # For transperency Functions: alpha() comma()
